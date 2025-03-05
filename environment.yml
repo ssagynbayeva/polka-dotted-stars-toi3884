@@ -1,5 +1,4 @@
 channels:
-  - defaults
   - conda-forge
 dependencies:
   # - mkl-service>=2.3.0
