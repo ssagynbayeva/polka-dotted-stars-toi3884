@@ -714,6 +714,9 @@ same locations, same active latitudes, etc. -- which still explains the surface 
             Posterior distributions for the all the parameters $\pmb{\Theta}$ for the synthetic data run 
             (Table \ref{tab:LongPriors} and Figure \ref{fig:experiment-1-map}). The axes span the entire prior volume, and 
             the black lines indicate the true (input) values, the dashed black lines indicate 2 standard deviations.
+            In our analysis process, 
+    when we encounter a solution that gives the obliquity $\lambda_{\star, \rm inferred}$ instead of $-\lambda_{\star, \rm inferred}$, we systematically transform the results. 
+    Specifically, we change the inclination to $180^\circ-i_{\star, \rm inferred}$ and obliquity to $-\lambda_{\star, \rm inferred}$ for visualization purposes. 
         }
         \label{fig:experiment-1-map-corner-all}
     \end{centering}
@@ -725,7 +728,7 @@ same locations, same active latitudes, etc. -- which still explains the surface 
         \includegraphics[width=\linewidth]{figures/experiment-1-map-comparison.pdf}
         \caption{
             Comparison of true and inferred stellar surface maps, light curve fit, and transit details. Top panel: the true stellar surface map used to 
-            generate synthetic data and the inferred stellar surface map, representing the mean of 1000 posterior samples. Color scales represent spot 
+            generate synthetic data and two inferred stellar surface maps due to the obliquity-inclination degeneracy, representing the mean of 1000 posterior samples. Color scales represent spot 
             intensity. The similarity between true and inferred maps demonstrates the model's capability to recover the overall spot distribution. Bottom panel:
             Full light curve comparison. Black points show the synthetic data with added noise. The pink line represents the best-fit model, 
             computed as the mean of 1000 posterior samples. Right panel (three rows): zoom-in views of three consecutive transits. Black points are data, 
@@ -802,24 +805,24 @@ when we encounter a solution that gives the obliquity $\lambda_\star$ instead of
 Specifically, we change the inclination to $180^\circ-i_\star$ for visualization purposes in Figure \ref{fig:experiment-1-map-corner-all}. 
 This approach ensures consistency in our reported results and allows for meaningful comparisons across different systems or models. 
 By explicitly addressing this degeneracy, we provide a more robust and physically interpretable set of results, avoiding potential ambiguities in the 
-orientation of the stellar spin axis relative to the planetary orbit. To show this explicitly, in Figure \ref{fig:experiment-1-inf-map-comparison}
-we plot the inferred maps, where the left one is the map with the degeneracy accounted for, and the right one is the map with the actual inferred values 
+orientation of the stellar spin axis relative to the planetary orbit. To show this explicitly, in Figure \ref{fig:experiment-1-map-comparison}
+we plot the inferred maps, where the middle one is the map with the degeneracy accounted for, and the right one is the map with the actual inferred values 
 for obliquity and inclination (degeneracy is not accounted for). The two maps are inverses of eahc other.
 
 %
-\begin{figure*}[hbt!]
-    % \script{experiment-1-true-map.py}
-    \begin{centering}
-        \includegraphics[width=\linewidth]{figures/experiment-1-comparison-inferred-maps.pdf}
-        \caption{
-            Comparison two inferred stellar surface maps, Left: the inferred stellar surface map, representing the mean of 1000 posterior samples
-            but with a changed obliquity to $-\lambda_{\rm inferred}$ and inclination to  $180^\circ-i_{\rm inferred}$. 
-            Right: the inferred stellar surface map, representing the mean of 1000 posterior samples
-            with an actual inferred obliquity (in this case, $\lambda_{\rm inferred}=\sim 31^\circ$) and inclination $i_{\rm inferred}=90^\circ$.
-        }
-        \label{fig:experiment-1-inf-map-comparison}
-    \end{centering}
-\end{figure*}
+% \begin{figure*}[hbt!]
+%     % \script{experiment-1-true-map.py}
+%     \begin{centering}
+%         \includegraphics[width=\linewidth]{figures/experiment-1-comparison-inferred-maps.pdf}
+%         \caption{
+%             Comparison two inferred stellar surface maps, Left: the inferred stellar surface map, representing the mean of 1000 posterior samples
+%             but with a changed obliquity to $-\lambda_{\rm inferred}$ and inclination to  $180^\circ-i_{\rm inferred}$. 
+%             Right: the inferred stellar surface map, representing the mean of 1000 posterior samples
+%             with an actual inferred obliquity (in this case, $\lambda_{\rm inferred}=\sim 31^\circ$) and inclination $i_{\rm inferred}=90^\circ$.
+%         }
+%         \label{fig:experiment-1-inf-map-comparison}
+%     \end{centering}
+% \end{figure*}
 %
 
 \subsection{Experiment II: evolving surface}
