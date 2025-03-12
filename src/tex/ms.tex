@@ -613,7 +613,7 @@ time-varying distortions in the photometric light curves.
 Here, we describe an improved model that accounts for the surface evolution.
 
 To account for the time-varying nature of the stellar surface maps, we have extended the model described in Section \ref{sec:model} to allow 
-for a smooth evolution of the maps over time. We assume that the surface map transitions smoothly from one epoch to the next, with the spherical harmonic 
+for a smooth \chcomment[id=W]{``smooth'' is a term of art, and usually means $C^1$, i.e.\ once-differentiable.  Our interpolant is not smooth in this sense, at least at the nodes.  Maybe say evolves ``continuously''?} evolution of the maps over time. We assume that the surface map transitions smoothly from one epoch to the next, with the spherical harmonic 
 coefficients linearly interpolated between consecutive map epochs. 
 
 Specifically, let $\pmb{y}_1$, $\pmb{y}_2$, $\pmb{y}_3$, ... represent the spherical harmonic coefficient vectors describing the surface maps at a 
@@ -630,6 +630,8 @@ A key aspect is that each pair of consecutive maps $\pmb{y}_i$, $\pmb{y}_{i+1}$ 
 Thus, $\pmb{y}_{i+1}$ does not depend on $\pmb{y}_{i-1}$, and $\pmb{y}_{i+2}$ is independent of $\pmb{y}_{i+1}$, allowing the model greater 
 flexibility to fit arbitrary time variations. The framework developed for static maps in Section \ref{sec:model} is applied independently 
 to each interpolated map $\pmb{y(t)}$, with the transition between maps governed by the linear interpolation above.
+
+\chcomment[id=W]{We need to explain the prior we place on each of the maps is a fresh draw from the \texttt{StarryProcess}, which is a pretty strong assumption; but seems to work OK.}
 
 % \subsection{Experiment on a non-evolving star}
 % For our initial experiment with minimal complexity, we created a synthetic light curve that involved a single planetary transit (therefore, 
