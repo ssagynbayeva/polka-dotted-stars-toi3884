@@ -6,9 +6,11 @@
 /*.pdf
 report.html
 arxiv.tar.gz
+*.synctex.gz
 
 # Figure output
 src/tex/figures/*
 
 # Miscellaneous
 __pycache__
+.DS_Store
