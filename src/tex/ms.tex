@@ -81,24 +81,33 @@ and interpretation of exoplanet observations.
 Therefore, characterizing stellar surface features arising from magnetic activity—-such as starspots and flares—-is crucial for 
 improving planet detection efficiency across photometric, spectral, and radial velocity studies. Understanding starspots is 
 especially important for the JWST mission, which aims to characterize numerous exoplanet atmospheres around stars with strong 
-variability. Recent JWST results on TRAPPIST-1b \citep{Lim2023} demonstrated that accurate measurements have been substantially 
-hindered by stellar contamination, highlighting the need for more precise models to account for these effects. To fully leverage 
+variability. Recent JWST results on TRAPPIST-1b \citep{Lim2023} demonstrated that accurate measurements have been \chdeleted[id=W,comment={I think you mean to say that the spot contamination pretty much destroyed the measurement, but ``substantially hindered'' sounds weird to me}]{substantially} 
+hindered by stellar contamination, highlighting the need for \chreplaced[id=W,comment={it's not that the model needs to be more ``precise'' it's that existing models just don't account for this properly/reasonably}]{better}{more precise} models to account for these effects. To fully leverage 
 JWST's capabilities and accurately interpret transmission spectra, we must develop a comprehensive understanding of stellar 
 magnetic activity and its impact on observed signals.
 
-Recent works have provided valuable insights into the topographical characteristics of stars and their magnetic activity. 
-For example, starspot influence can be observed through photometric data from Kepler or TESS. The \texttt{starry} code 
-\citep{Luger2019} offers an efficient method for computing light curves of stars and planets using a spherical harmonic 
-framework to represent surface brightness distribution, enabling fast and accurate calculations of rotational light curves 
-and occultations. Building upon \texttt{starry}, \citet{Luger2021b} introduced \texttt{StarryProcess}, a probabilistic model 
-for stellar variability that treats spot distribution as a Gaussian process in spherical harmonic space, allowing efficient 
-modeling of stellar variability over extended time scales.
+Recent works have provided valuable insights into the topographical
+characteristics of stars and their magnetic activity. For example, starspot
+influence can be observed through photometric data from Kepler or TESS. The
+\texttt{starry} code \citep{Luger2019} offers an efficient method for computing
+light curves of stars and planets using a spherical harmonic framework to
+represent \chadded[id=W]{each object's} surface brightness distribution,
+enabling fast and accurate calculations of rotational light curves and
+occultations. Building upon \texttt{starry}, \citet{Luger2021b} introduced
+\texttt{StarryProcess}, a probabilistic model for stellar variability that
+\chreplaced[id=W]{uses a model for the}{treats} spot distribution
+\chreplaced[id=W]{to derive}{as} a Gaussian process \chadded[id=W]{for the
+representation of the surface brightness} in spherical harmonic space, allowing
+efficient modeling of stellar variability over extended time scales.
 
-With \texttt{StarryProcess}, \citet{Luger2021b} investigated stellar spot features using Gaussian Processes with 
-a physically interpretable kernel. They argued that complex degeneracies make it impossible to determine the precise 
-configuration of starspots solely from rotational light curves. Instead, they suggested focusing on the statistical properties 
-of spot distributions rather than individual spot characteristics. However, they also demonstrated that constraining starspot 
-properties from a single star's light curve is difficult; an ensemble analysis of multiple stars is more informative.
+With \texttt{StarryProcess}, \citet{Luger2021b} investigated stellar spot
+features using Gaussian Processes with a physically interpretable kernel. They
+argued that complex degeneracies make it impossible to determine the precise
+configuration of starspots solely from rotational light curves. Instead, they
+suggested focusing on the statistical properties of spot distributions rather
+than individual spot characteristics. However, they also demonstrated that
+constraining starspot properties from a single star's light curve is difficult;
+an ensemble analysis of multiple stars is more informative.
 
 While previous models like \texttt{StarryProcess} relied solely on stellar rotational light curves—which contain limited 
 information about spot properties—our approach introduces a critical advancement: we leverage planetary transits as probes of 
