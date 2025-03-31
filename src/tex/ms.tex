@@ -139,7 +139,8 @@ presents results on evolving surfaces; Section \ref{sec:toi3884} presents result
         \caption{Light curves from the kinds of stars shown on the left panel (these light curves were calculated analytically 
         using \texttt{starry} \citep{Luger2019}): (a) the light curve shows a flat flux if the star has no surface features and no planet orbiting it; 
         (b) a transit in the light curve of the star that hosts an exoplanet; (c) if the star has one orbiting planet and one starspot under the planet's 
-        trajectory then it is seen as a bump in a transit signal; (d) the light curve becomes complicated when the star has multiple spots.}
+        trajectory then it is seen as a bump in a transit signal; (d) the light curve becomes complicated when the star has multiple spots.
+        In this illustration, the planet has rings to make it distinct from a dark circular spot.}
         \label{fig:cartoon}
     \end{figure}
 
@@ -612,7 +613,8 @@ time-varying distortions in the photometric light curves.
 Here, we describe an improved model that accounts for the surface evolution.
 
 To account for the time-varying nature of the stellar surface maps, we have extended the model described in Section \ref{sec:model} to allow 
-for a smooth \chcomment[id=W]{``smooth'' is a term of art, and usually means $C^1$, i.e.\ once-differentiable.  Our interpolant is not smooth in this sense, at least at the nodes.  Maybe say evolves ``continuously''?} evolution of the maps over time. We assume that the surface map transitions smoothly from one epoch to the next, with the spherical harmonic 
+for a continuous evolution of the maps over 
+time. We assume that the surface map transitions smoothly from one epoch to the next, with the spherical harmonic 
 coefficients linearly interpolated between consecutive map epochs. 
 
 Specifically, let $\pmb{y}_1$, $\pmb{y}_2$, $\pmb{y}_3$, ... represent the spherical harmonic coefficient vectors describing the surface maps at a 
@@ -630,7 +632,11 @@ Thus, $\pmb{y}_{i+1}$ does not depend on $\pmb{y}_{i-1}$, and $\pmb{y}_{i+2}$ is
 flexibility to fit arbitrary time variations. The framework developed for static maps in Section \ref{sec:model} is applied independently 
 to each interpolated map $\pmb{y(t)}$, with the transition between maps governed by the linear interpolation above.
 
-\chcomment[id=W]{We need to explain the prior we place on each of the maps is a fresh draw from the \texttt{StarryProcess}, which is a pretty strong assumption; but seems to work OK.}
+There are two other assumptions to note here. First, the prior we place on each of the maps $\pmb{y(t)}$ is a fresh draw from 
+the \texttt{StarryProcess}. Second, the linear interpolation approach is sensible if the $\Delta t$ between the fitted maps is 
+small enough. In Section \ref{sec:experiment2}, we assume the spot time evolution is $\sim P_{\star}$. In general, we recommend
+to have the chunks of the light curve span the time that's $\leq$ than the rotational period of the star, but one needs to be careful
+with fast rotators and the spots that evolve more frequently than that.
 
 % \subsection{Experiment on a non-evolving star}
 % For our initial experiment with minimal complexity, we created a synthetic light curve that involved a single planetary transit (therefore, 
@@ -690,6 +696,11 @@ $l_{max} = 15$ and conditioned on different values of the hyperparameter vector 
 illustrates the setup of Experiment I. The upper panel displays the "true" map used in the experiment, which represents the underlying reality that 
 the model aims to reconstruct. This map represents the brightness distribution across the star's surface. We generated 90 days of observations with a 2-minute
 cadence, and then we binned the out-of-transit flux to speed up the sampling process.
+Maps computed at lower spherical harmonic order, e.g., $l_{max} = 15$, are less computationally expensive to compute, but small 
+$l_{max}$ cannot produce small scale surface brightness variations. For example, here, $l_{max} = 15$ will
+only be able to produce the spots of sizes of $\sim 10^\circ$, which are bigger than any sunspots. 
+We'll discuss the compromise between surface 
+resolution and computational expense in the Section \ref{sec:smallspots}. 
 \begin{figure*}[ht!]
     % \script{experiment-1-true-map.py}
     \begin{centering}
@@ -819,7 +830,7 @@ uncertainties of the inference process.
 \end{table}
 %
 
-Finally, it is important to note that all results presented in this analysis have been carefully adjusted to account for the inclination and obliquity 
+It is important to note that all results presented in this analysis have been carefully adjusted to account for the inclination and obliquity 
 degeneracy discussed in Section \ref{sec:obl-inc}. As discussed earlier, a system with stellar inclination $i_\star$ and obliquity $-\lambda_\star$ 
 produces identical light curves to a system with inclination $180^\circ-i_\star$ and obliquity $\lambda_\star$. In our analysis process, 
 when we encounter a solution that gives the obliquity $\lambda_\star$ instead of $-\lambda_\star$, we systematically transform the results. 
@@ -829,6 +840,13 @@ By explicitly addressing this degeneracy, we provide a more robust and physicall
 orientation of the stellar spin axis relative to the planetary orbit. To show this explicitly, in Figure \ref{fig:experiment-1-map-comparison}
 we plot the inferred maps, where the middle one is the map with the degeneracy accounted for, and the right one is the map with the actual inferred values 
 for obliquity and inclination (degeneracy is not accounted for). The two maps are inverses of eahc other.
+
+Finally, our tests demonstrated that attempting to model fine-scale features ($l_{max}=15$ spots) using lower spherical 
+harmonic orders ($l_{max}=6$) produced inaccurate reconstructions. However, active latitudes would still be recoverable, 
+though the reconstructed spots would appear larger than in reality. This size distortion consequently affects both the contrast 
+and the apparent number of spots in the model. Despite these constraints, the approach aligns well with observations of 
+many young and active stars, where extensive spot coverage is common. 
+
 
 %
 % \begin{figure*}[hbt!]
@@ -1402,7 +1420,7 @@ Additionally, the segmented approach provides a practical starting point for cha
 from which more sophisticated time-dependent models can be developed. The evolving surface model presented 
 here represents an initial step toward such comprehensive modeling, which will become increasingly important as 
 higher-precision photometry becomes available from current and future missions.
-\subsection{Small Spots}
+\subsection{Small Spots} \label{sec:smallspots}
 An important limitation of our current model concerns the spatial resolution of stellar surface features. 
 Our implementation uses spherical harmonics with a maximum degree of $l_{\rm max}=15$, which provides sufficient 
 resolution to capture large-scale spot structures like the high-latitude features we identified on TOI-3884, or the spots of size 
@@ -1413,9 +1431,16 @@ in complex active regions. Such small-scale features can significantly impact tr
 to resolve with current modeling approaches. \cite{Morrisradius} showed that using ingress/egress durations rather than 
 transit depths can provide more accurate radius measurements when small spots are present on the stellar surface.
 Still, accurately representing such fine-scale structures would require substantially higher spherical 
-harmonic degrees, potentially $l_{\rm max} > 50$. The computational challenge of such high-resolution modeling is very significant. 
+harmonic degrees, potentially $l_{\rm max} > 100$ \citep{Solanki2003}. The computational challenge of such high-resolution modeling is very significant. 
 The size of the covariance matrix in our approach scales as $(l_{\rm max}+1)^2 \times (l_{\rm max}+1)^2$, meaning that 
 doubling the maximum degree increases the memory requirements by a factor of 16 and the computational time by even more.
+
+While the Sun does not exhibit spots as large as 10 degrees, young stars may present extensive active regions. It is important 
+to clarify, however, that these large active regions differ fundamentally from sunspots as traditionally defined bipolar 
+magnetic regions (BMRs). Individual BMRs of 10-degree scale are physically improbable based on our understanding of 
+stellar magnetohydrodynamics. Nevertheless, clusters of BMRs that collectively span approximately 10 degrees are 
+plausible. This distinction between individual large spots and clustered active regions should be acknowledged when 
+interpreting results derived from spherical harmonic-based brightness reconstructions of stellar surfaces.
 
 For TOI-3884, the $l_{\text{max}}=15$ resolution is justified by what we know about active M dwarfs, which tend to form 
 larger spot structures than G-type stars like the Sun. Zeeman-Doppler imaging and spectropolarimetric studies of M dwarfs 
@@ -1432,6 +1457,15 @@ Given these considerations, our current $l_{\text{max}}=15$ model represents a p
 power and computational feasibility. It captures the dominant features affecting the transit light curves while remaining 
 tractable for Bayesian inference with current computational resources. The approach can be scaled to higher resolutions as 
 needed when studying stars where smaller spot structures significantly impact the observations.
+
+While we reference active M dwarfs as 
+potential comparative cases for more magnetically active stars, they require careful consideration.
+The \texttt{StarryProcess} framework is fundamentally structured around the concept of active latitudes, 
+a characteristic pattern observed in stars with solar-like dynamo mechanisms. The dynamo mechanisms in M dwarfs 
+remain not completely understood, and there is no conclusive observational evidence that these stars exhibit the 
+active latitude patterns that underpin our model. Indeed, theoretical predictions for $\alpha^2$-dynamos often suggest more 
+uniform spot distributions across stellar surfaces, with activity potentially concentrating at polar regions in rapidly 
+rotating stars \citep{Yadav2015,Gastine2013,Chabrier2006}. 
 
 \subsection{Implications for M Dwarf Magnetic Activity}
 
@@ -1452,10 +1486,26 @@ different starspot distributions between the near-identical binary components GJ
 high-latitude circumpolar spots similar to GJ 791.2A, while GJ 65B displays larger spots concentrated at intermediate 
 latitudes, suggesting different dynamo mechanisms may be operating despite their similar masses and rotation rates.
 
+Studies focused on flares, which represent extremely 
+localized magnetic phenomena, provide complementary evidence for this polar concentration of magnetic activity. In particular,
+\cite{Ilin2021} present an analysis of long-duration flares on fully convective stars observed with TESS. 
+They demonstrate that all four detected giant flares occurred at remarkably high latitudes, far higher than typical solar 
+flare latitudes. Additionally, \cite{Ilin2023} developed an ensemble approach to determine flare latitudes which indicates 
+that magnetic field emergence in active M dwarfs tends to occur preferentially at high latitudes, particularly for 
+rapidly rotating stars. 
+
 The combination of a moderately inclined stellar rotation axis and significant high-latitude spots also helps explain why 
 previous analyses of TOI-3884 detected relatively low photometric variability despite evidence for active chromospheric emission. 
 High-latitude spots maintain a relatively constant projected area as the star rotates when viewed at moderate inclinations, 
 resulting in reduced rotational modulation while still affecting transit profiles when intersected by the planet's path.
+
+Finally, for analyzing JWST observations that typically cannot span a complete stellar rotation period,
+the transit data alone could also yield valuable information about the starspot distribution under certain conditions. 
+This approach would require making well-justified assumptions about the stellar obliquity and inclination, as these 
+parameters critically influence which regions of the stellar surface are sampled during transit events. This highlights both 
+a limitation and an opportunity - while complete surface maps need full phase coverage, 
+even the spatially and temporally constrained information from high-precision transit observations can significantly 
+advance our understanding of stellar activity patterns on TOI-3884 and similar active host stars.
 
 \section{Conclusions}
 The \texttt{StarryStarryProcess} model presented in this work represents a significant advancement in our ability to characterize stellar surfaces using transit light curves. 
