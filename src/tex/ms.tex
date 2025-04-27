@@ -51,13 +51,13 @@
     which contain limited information about spot properties -- our approach
     leverages planetary transits as probes of stellar surfaces. When a planet
     crosses a spot during transit, it creates a distinctive
-    \chreplaced[id=W]{change}{bump} in the light curve that directly reveals
+    change in the light curve that directly reveals
     spot properties. Our model integrates planetary transit modeling with
     stellar variability analysis by combining the spherical harmonic
-    \chadded[id=W]{surface map} representation from \texttt{starry}, the
-    probabilistic approach \chadded[id=W]{to spot properties} of
+    surface map representation from \texttt{starry}, the
+    probabilistic approach to spot properties of
     \texttt{StarryProcess}, and a comprehensive transit model that accounts for
-    spot-crossing events \chadded[id=W]{during transits}. We demonstrate through
+    spot-crossing events during transits. We demonstrate through
     synthetic data experiments that our model successfully recovers spot
     distributions, stellar orientation, and spot physical properties. We extend
     the framework to handle evolving stellar surfaces through time-dependent
@@ -67,7 +67,7 @@
     of previous models by providing constraints on spot properties that would
     remain hidden in the null space of rotational light curves alone. This
     methodology enables more accurate exoplanet characterization by
-    disentangling stellar activity \chcomment[id=W]{Here it seems that you are using ``stellar activity'' as a synonym for ``stellar spots,'' but I don't think that's the case?} from planetary signals while simultaneously
+    disentangling stellar activity due to starspots from planetary signals while simultaneously
     providing insights into stellar magnetic activity patterns.
 \end{abstract}
 
@@ -83,8 +83,8 @@ and interpretation of exoplanet observations.
 Therefore, characterizing stellar surface features arising from magnetic activity—-such as starspots and flares—-is crucial for 
 improving planet detection efficiency across photometric, spectral, and radial velocity studies. Understanding starspots is 
 especially important for the JWST mission, which aims to characterize numerous exoplanet atmospheres around stars with strong 
-variability. Recent JWST results on TRAPPIST-1b \citep{Lim2023} demonstrated that accurate measurements have been \chdeleted[id=W,comment={I think you mean to say that the spot contamination pretty much destroyed the measurement, but ``substantially hindered'' sounds weird to me}]{substantially} 
-hindered by stellar contamination, highlighting the need for \chreplaced[id=W,comment={it's not that the model needs to be more ``precise'' it's that existing models just don't account for this properly/reasonably}]{better}{more precise} models to account for these effects. To fully leverage 
+variability. Recent JWST results on TRAPPIST-1b \citep{Lim2023} demonstrated that accurate measurements have been 
+hindered by stellar contamination, highlighting the need for better models to account for these effects. To fully leverage 
 JWST's capabilities and accurately interpret transmission spectra, we must develop a comprehensive understanding of stellar 
 magnetic activity and its impact on observed signals.
 
@@ -93,13 +93,13 @@ characteristics of stars and their magnetic activity. For example, starspot
 influence can be observed through photometric data from Kepler or TESS. The
 \texttt{starry} code \citep{Luger2019} offers an efficient method for computing
 light curves of stars and planets using a spherical harmonic framework to
-represent \chadded[id=W]{each object's} surface brightness distribution,
+represent each object's surface brightness distribution,
 enabling fast and accurate calculations of rotational light curves and
 occultations. Building upon \texttt{starry}, \citet{Luger2021b} introduced
 \texttt{StarryProcess}, a probabilistic model for stellar variability that
-\chreplaced[id=W]{uses a model for the}{treats} spot distribution
-\chreplaced[id=W]{to derive}{as} a Gaussian process \chadded[id=W]{for the
-representation of the surface brightness} in spherical harmonic space, allowing
+uses a model for the spot distribution
+to derive a Gaussian process for the
+representation of the surface brightness in spherical harmonic space, allowing
 efficient modeling of stellar variability over extended time scales.
 
 With \texttt{StarryProcess}, \citet{Luger2021b} investigated stellar spot
@@ -131,8 +131,8 @@ stellar variability analysis. Our model combines:
     \item The spherical harmonic representation from \texttt{starry}
     \item The probabilistic approach of \texttt{StarryProcess}
     \item A comprehensive transit model that accounts for spot-crossing events
-    \item \chadded[id=W]{The capability to model evolving stellar surfaces
-    through efficient interpolation of surface maps}
+    \item The capability to model evolving stellar surfaces
+    through efficient interpolation of surface maps
 \end{itemize}
 
 By simultaneously modeling stellar variability, spot distributions, and
@@ -140,8 +140,8 @@ planetary transits, our approach disentangles spot effects from transit
 features, resulting in more accurate constraints on both stellar and planetary
 parameters. When modeling multiple transits alongside underlying stellar
 variability, we can better determine stellar inclination, obliquity, and spot
-distribution patterns \chadded[id=W]{as well as providing constraints on the
-spot patters in the surface map that lie beneath the transit}.
+distribution patterns as well as providing constraints on the
+spot patters in the surface map that lie beneath the transit.
 
 Figure \ref{fig:nullspace} illustrates a key insight of our approach: while
 previous methods struggled with the null space problem (where many surface
@@ -149,12 +149,12 @@ features don't affect the observable light curve), planetary transits
 effectively ``carve out'' paths on the stellar surface that reveal information
 otherwise hidden in the null space. The transit trajectory covers regions in the
 preimage component (observable) that would remain undetectable
-\chreplaced[id=W]{without the presence of a transit.}{in conventional analysis.}
+without the presence of a transit.
 
 Our paper is organized as follows: Section \ref{sec:model} presents the
-\texttt{StarryStarryProcess} model; \chcomment[id=W]{What about Section 3
-alone?} Section \ref{sec:experiment1} presents results on non-evolving stellar
-surfaces; Section \ref{sec:experiment2} presents results on evolving surfaces;
+\texttt{StarryStarryProcess} model; Section \ref{sec:results-synthetic} presents all results with 
+Section \ref{sec:experiment1} presenting results on non-evolving stellar
+surfaces and Section \ref{sec:experiment2} presenting results on evolving surfaces;
 Section \ref{sec:toi3884} presents results on TESS data for TOI-3884; and
 finally, we discuss implications and assumptions in Section
 \ref{sec:discussion}.
@@ -184,12 +184,6 @@ finally, we discuss implications and assumptions in Section
 
 \section{Hierarchical Bayesian model}
 \label{sec:model}
-
-\chcomment[id=W]{I have made a lot of changes to this section, and eventually gave up tracking them as comments; if you want to track them, you will have to git diff against the earlier version.}
-
-\chcomment[id=W]{Can you go through and make sure I've fixed all the
-notation---it should be $\mathbb{f}_\mathrm{true}$ (blackboard-bold and also
-Roman subscript) throughout, $\pmb{\Theta}$ (bold), etc.}
 
 In this section we describe our probabilistic model for stellar surfaces and the
 parameters we use to infer their physical properties.  Our parameters break down
@@ -458,20 +452,20 @@ uniform, allowing the data to constrain the baseline.
 
 \subsection{Stellar inclination and obliquity}
 \label{sec:obl-inc}
-In the Sectrion \ref{sec:results-synthetic}, we \chreplaced[id=W]{demonstrate
-that}{hope to convince the reader that} there is a a good amount of information
+In the Sectrion \ref{sec:results-synthetic}, we demonstrate
+that there is a a good amount of information
 about stars that we can learn from disk-integrated photometric measurements
-\chadded[id=W]{in the presence of transits}. In particular, Figure
+in the presence of transits. In particular, Figure
 \ref{fig:inclination} illustrates the profound impact of stellar inclination on
 observed light curves. As the inclination angle varies from pole-on ($0^\circ$)
 to equator-on ($90^\circ$) views, we observe significant changes in both the
 amplitude and morphology of the light curve modulations. At low inclinations,
 when we view the star more pole-on, the light curves exhibit smaller amplitude
-variations. This is because the spots remain invisible \chadded[id=W]{or
-visible} throughout the stellar rotation, leading to more subtle flux changes.
+variations. This is because the spots remain invisible or
+visible throughout the stellar rotation, leading to more subtle flux changes.
 As the inclination increases towards an equator-on perspective, the amplitude of
-the variations typically increases, and the shape \chadded[id=W]{changes} of the
-light curve become\chdeleted[id=W]{s} more pronounced. These changes occur
+the variations typically increases, and the shape changes of the
+light curve become more pronounced. These changes occur
 because at higher inclinations, spots periodically disappear from view as the
 star rotates, causing more dramatic swings in the observed flux. The effect is
 particularly noticeable for spots at mid-latitudes, which can produce sharp dips
@@ -532,10 +526,10 @@ particularly focusing on spot-crossing events, can provide valuable insights int
 While the analysis of spot-crossing events in transit light curves provides a
 powerful tool for constraining stellar inclination and obliquity, there exists
 an important degeneracy in these measurements.
-\chreplaced[id=W]{A}{Specifically, a} system with stellar inclination $i_\star$
+A system with stellar inclination $i_\star$
 and obliquity $-\lambda_\star$ will produce identical light curves to a system
 with inclination $180-i_\star$ and obliquity $\lambda_\star$, but with a surface
-map \chreplaced[id=W]{reflected about the equator}{flipped upside down}.
+map reflected about the equator.
 
 This degeneracy arises from the symmetry in the geometry of the star-planet system. In both scenarios, the relative orientation between the stellar 
 rotation axis and the planet's orbital plane remains the same, merely mirrored. As a result, the pattern of spot crossings and their evolution over 
@@ -576,27 +570,27 @@ We introduce transformed variables $\tilde{x}$, $\tilde{y}$, and $\tilde{z}$, on
 which we place prior distributions. Specifically, we use normal priors for
 $\tilde{x}$ and $\tilde{y}$, and a half-normal prior for $\tilde{z}$ to ensure
 it remains positive. These priors are chosen to explore the
-\chadded[id=W]{non-degenerate part of the} parameter space effectively
-\chreplaced[id=W]{as described below}{while respecting physical constraints}.
+non-degenerate part of the parameter space effectively
+as described below.
 
-The transformation from these sampled variables to the physical space \chreplaced[id=W]{begins with}{is then defined as}:
+The transformation from these sampled variables to the physical space begins with:
 \begin{eqnarray}
     x & = & \tilde{x}, \\ 
     y & = & \frac{\sqrt{2}}{2} (\tilde{z} + \tilde{y}), \\
     z & = & \frac{\sqrt{2}}{2} (\tilde{z} - \tilde{y})
 \end{eqnarray}
 
-From these transformed \chadded[id=W]{cartesian} coordinates, we can derive the
+From these transformed cartesian coordinates, we can derive the
 stellar inclination and obliquity:
 \begin{eqnarray}
     i_\star & = & \arctan{\frac{y}{x}}, \\ 
     \lambda_\star & = & \arccos{\frac{z}{\sqrt{x^2 + y^2 + z^2}}}
 \end{eqnarray}
-\chadded[id=W]{With these definitions, the degeneracy identified above
+With these definitions, the degeneracy identified above
 corresponds to $\tilde{z} \to - \tilde{z}$, so the half-normal prior restricts
 the model to a single branch of the degeneracy.  The isotropic priors on
 $\tilde{x}$, $\tilde{y}$, and $\tilde{z}$ induce appropriate isotropic priors on
-$i_\star$ and $\lambda_\star$.}
+$i_\star$ and $\lambda_\star$.
 
 By sampling in this transformed space and then mapping back to the physical
 parameters, we ensure that our model explores the full range of physically
@@ -635,42 +629,39 @@ for a continuous evolution of the maps over
 time. We assume that the surface map transitions smoothly from one epoch to the next, with the spherical harmonic 
 coefficients linearly interpolated between consecutive map epochs. 
 
-\chcomment[id=W]{Shouldn't these $\pmb{y}$ actually be $\mathbb{y}$?  And why
-are the times $\pmb{t}$ written in bold?}  Specifically, let $\pmb{y}_1$,
+Specifically, let $\pmb{y}_1$,
 $\pmb{y}_2$, $\pmb{y}_3$, ... represent the spherical harmonic coefficient
 vectors describing the surface maps at a sequence of epochs $\pmb{t}_1$,
 $\pmb{t}_2$, $\pmb{t}_3$, ... For any time $\pmb{t}$ between two consecutive
 epochs $\pmb{t}_i$ and $\pmb{t}_{i+1}$, the coefficient vector $\pmb{y(t)}$ is
 obtained by linear interpolation:
 \begin{linenomath}\begin{align}\label{linearinterp}
-    \pmb{y(t)} = (1 - \alpha)\pmb{y}_i + \alpha\pmb{y}_{i+1},
+    \mathbb{y}(t) = (1 - \alpha)\mathbb{y}_i + \alpha\mathbb{y}_{i+1},
 \end{align}\end{linenomath}
 
-where $\alpha = (\pmb{t} - \pmb{t}_i) / (\pmb{t}_{i+1} - \pmb{t}_i)$ is the linear interpolation factor between the epochs. 
-This interpolation scheme ensures the surface map smoothly deforms from $\pmb{y}_i$ at time $\pmb{t}_i$ to $\pmb{y}_{i+1}$ at the next epoch $\pmb{t}_{i+1}$.
+where $\alpha = (t - t_i) / (t_{i+1} - t_i)$ is the linear interpolation factor between the epochs. 
+This interpolation scheme ensures the surface map smoothly deforms from $\mathbb{y}_i$ at time $t_i$ to $\mathbb{y}_{i+1}$ at the next epoch $t_{i+1}$.
 
-A key aspect is that each pair of consecutive maps $\pmb{y}_i$, $\pmb{y}_{i+1}$
-is interpolated independently from other map pairs. Thus, $\pmb{y}_{i+1}$ does
-not depend on $\pmb{y}_{i-1}$, and $\pmb{y}_{i+2}$ is independent of
-$\pmb{y}_{i+1}$, allowing the model greater flexibility to fit arbitrary time
+A key aspect is that each pair of consecutive maps $\mathbb{y}_i$, $\mathbb{y}_{i+1}$
+is interpolated independently from other map pairs. Thus, $\mathbb{y}_{i+1}$ does
+not depend on $\mathbb{y}_{i-1}$, and $\mathbb{y}_{i+2}$ is independent of
+$\mathbb{y}_{i+1}$, allowing the model greater flexibility to fit arbitrary time
 variations. The framework developed for static maps in Section \ref{sec:model}
-is applied independently to each interpolated map $\pmb{y(t)}$, with the
+is applied independently to each interpolated map $\mathbb{y}(t)$, with the
 transition between maps governed by the linear interpolation above.
-\chadded[id=W]{The predicted true flux remains linear in the maps; the complete
+The predicted true flux remains linear in the maps; the complete
 design matrix in this model is blocked and composed of values from the
 constant-map design matrices produced by \texttt{starry} weighted by the linear
-interpolation factors at the corresponding times.}
+interpolation factors at the corresponding times.
 
 There are two other assumptions to note here. First, the prior we place on each
 of the maps $\pmb{y(t)}$ is a fresh draw from the \texttt{StarryProcess}.
 Second, the linear interpolation approach is sensible if the $\Delta t$ between
 the fitted maps is small enough. In Section \ref{sec:experiment2}, we assume the
 spot time evolution is $\sim P_{\star}$. In general, we recommend to have the
-\chreplaced[id=W]{epochs}{chunks} of the \chadded[id=W]{interpolated} light
-curve span times \chreplaced[id=W]{that are comparable to the spot evolution
-timescale.}{that's $\leq$ than the rotational period of the star, but one needs
-to be careful with fast rotators and the spots that evolve more frequently than
-that.}
+epochs of the interpolated light
+curve span times that are comparable to the spot evolution
+timescale.
 
 % \subsection{Experiment on a non-evolving star}
 % For our initial experiment with minimal complexity, we created a synthetic light curve that involved a single planetary transit (therefore, 
@@ -718,13 +709,8 @@ flexibility to avoid computational cost.  We write
     via the uniform prior $\sim\mathcal{U}(-b_{max}, -b_{max})$ on $b$, where
     $b_{max} = R_{\star} / a$.
     \item \textit{Period}: a prior on $P$ and $P_{\star}$. Instead of directly
-    constraining the period, this prior works in log-space\chdeleted[id=W]{to
-    ensure the period remains positive and to make the distribution more
-    symmetric}. The \chdeleted[id=W]{actual} prior is a uniform distribution in
+    constraining the period, this prior works in log-space. The prior is a uniform distribution in
     log-space, bounded by the log of the true value plus or minus some fraction.
-    \chdeleted[id=W]{The final period is determined by exponentiating the result
-    of this log-uniform distribution, which effectively creates a kind of
-    log-uniform prior on the period itself.}
     \item \textit{Stellar Angle}: a normal distribution on orientation vectors $\tilde{x}$ and $\tilde{y}$ and a half-normal distribution on $\tilde{z}$. See Section
     \ref{sec:obl-inc} for the full explanation.
 \end{itemize}
@@ -769,14 +755,7 @@ how the spots are spread across latitudes).
 
 We use Equation \ref{eq:log-likeRodrigo} as our log likelihood term. The results
 are shown on Figure \ref{fig:experiment-1-map-corner-all}, where we correctly
-infer almost all five parameters within $\sim 2$ standard deviations. The only
-parameters that are not constrained too well are planetary eccentricity $e$ and
-the radius of spots $\mathbb{r}$, but they are still fairly close to the true
-values: the true value for the eccenticity is 0.2 while the inferred median
-value is 0.225, and the true value for the radius of spots is $10^\circ$ while
-the inferred median value is $14.3^\circ$. \chcomment[id=W]{I think this
-discussion is too pessisimistic; I look at Figure 7, and I see good recovery of
-the true parameters, and no need to hedge by the ``close'' discussion above.}
+infer almost all five parameters within $\sim 2$ standard deviations. 
 
 To visually demonstrate the performance of our model, Figure \ref{fig:experiment-1-map-comparison} presents a comprehensive comparison between 
 the true stellar surface used in our synthetic data generation and the inferred surface map from our analysis, alongside the resulting light curve fit and 
@@ -1142,13 +1121,10 @@ distribution from 2 to 18 days.
 
 The stellar mass follows a log-normal distribution derived from density
 measurements: $\ln(M_{\star}) \sim \mathcal{N}(\ln(\rho_{\rm RV} /
-\rho_{\odot}), \sigma_{\rho_{\rm RV}} / \rho_{\rm RV})$. This prior incorporates
-observational constraints on the stellar density while properly accounting for
-the uncertainty. The radius of the star stays fixed at 1 $R_\odot$.
-\chcomment[id=W]{Do you want to include more discussion about how we are
-effectively sampling the stellar density?  (This is well-known in the transit
-community, so not strictly necessary, but the use of ``density'' here comes a
-bit out of the blue!)}
+\rho_{\odot}), \sigma_{\rho_{\rm RV}} / \rho_{\rm RV})$. This prior incorporates observational constraints on the stellar 
+density while properly accounting for the uncertainty. Since we fix the radius of the star at 1 $R_\odot$, sampling the 
+stellar mass directly translates to sampling the stellar density parameter space, which is the physical quantity 
+constrained by our observations. 
 
 For the Gaussian Process (GP) kernel parameters modeling stellar activity, we employ uniform priors: the radius of spots 
 $\mathbb{r} \sim \mathcal{U}(10.0, 60.0)$, the contrast $\mathbb{c} \sim \mathcal{U}(0.01, 0.9)$, 
@@ -1160,13 +1136,10 @@ Jacobian adjustments in the log-probability calculations to maintain proper prob
 
 \subsection{Addressing Multimodality with Parallel Tempering}
 
-The posterior distribution of our model \chadded[id=W]{applied to this data set}
+The posterior distribution of our model applied to this data set
 exhibits significant multimodality, presenting substantial challenges for
 conventional sampling methods. This multimodality arises from several sources
-inherent to transit modeling.  \chcomment[id=W]{We were doing ``transit
-modeling'' above, and yet there was no multimodality there---what's different
-here?  Is it the quality of the data?  Are we using a broad prior here, and
-narrow above?  Something else?} First, the degeneracy between impact parameter
+inherent to transit modeling. First, the degeneracy between impact parameter
 and planet radius creates multiple regions of high posterior probability.
 Second, the periodic nature of orbital elements introduces symmetries in the
 likelihood landscape, particularly when stellar activity signals interact with
@@ -1183,12 +1156,10 @@ particularly severe in our high-dimensional parameter space, where narrow
 connecting pathways between modes create bottlenecks for efficient sampling.
 Similarly, HMC methods, while excellent for exploring complicated geometries
 within a single mode, typically fail to transition between widely separated
-modes\chdeleted[id=W]{due to the momentum-based dynamics that govern their
-exploration}.
+modes.
 
 To overcome these limitations, we utilized Parallel Tempering (PT), also known
-as replica exchange MCMC.  \chcomment[id=W]{TODO: add references here.  See Earl
-\& Deem 2005, and others from the \texttt{ptemcee} paper.} This method
+as replica exchange MCMC \citep{Earl_2005,ptemcee}. This method
 simultaneously runs multiple MCMC chains at different "temperatures," where
 temperature controls the degree to which the posterior is flattened. At high
 temperatures, the likelihood is down-weighted, allowing chains to move more
@@ -1208,20 +1179,14 @@ of PT in \texttt{ptemcee} \citep{ptemcee}. \texttt{ptemcee} handles these exchan
 
 where $T_i$ and $T_j$ are the temperatures of adjacent chains, and $\theta_i$
 and $\theta_j$ are their respective states. Our implementation used a ladder of
-8 temperatures \chdeleted[id=W]{geometrically spaced between $T=1$ and
-$T=\infty$, with exchange attempts proposed every 10 iterations}.  A key feature
+8 temperatures.  A key feature
 of \texttt{ptemcee} is that it will adjust the temperatures of the ladder as the
 simulation progresses to ensure that the rate of exchanges equalizes while
 pinning the lowest and highest temperatures to $T=1$ and $T=\infty$.
-\chdeleted[id=W,comment={This doesn't really validate the sampling; if you like,
-add something about autocorrelation lengths to monitor convergence.}]{To
-validate adequate sampling across modes, we monitored the exchange acceptance
-rates between adjacent temperature levels, aiming for rates between 10\% and
-40\%.}
+To ensure convergence, we monitored the integrated autocorrelation time of our sampling chains, confirming that our 
+runs exceeded 50 times the maximum autocorrelation length across all parameters.
 
 \subsection{Results}
-
-\chcomment[id=W]{Did we say that we are using a non-evolving surface model here?  I've lost the thread.  Can we be clear?  If time-evolving, say how many epochs, etc; if not, note that this could be a weakness, particularly since we see evolution in the transits (i.e. we would infer a strange orientation so that the constant map can produce transit-to-transit variation because the transit occults different parts of the map across different transits).}
 
 The full posterior distributions for all model parameters are summarized in Table \ref{tab:ResultsT0i3884}. Here, we highlight the 
 most significant results.
@@ -1251,10 +1216,7 @@ observations. Collectively, these parameters paint a picture of TOI-3884 as an a
     near-polar spot. The spot contrast is relatively modest with most of the
     probability mass below 0.1. The number of spots tends toward values between
     7.5 and 10, suggesting a relatively small number of spots.
-    \chcomment[id=W]{I hesitate to ask, but these chains look really ratty.
-    What is the autocorrelation length for the various parameters?  Can you run
-    them longer so that the distributions become smoother and we are more
-    confident that they have converged?}}
+    }
     \label{fig:spot_parameters}
 \end{figure*}
 
@@ -1270,7 +1232,7 @@ configuration would lead to similar physical interpretations regarding the
 underlying stellar dynamo processes. This latitude distribution, combined with
 the other spot parameters discussed previously, presents compelling evidence for
 strong, organized magnetic fields concentrated at the rotational poles of
-TOI-3884.  \chcomment[id=W]{Citation needed?}
+TOI-3884 \citep{Libby-Roberts2023}. 
 %
 \begin{figure*}[hbt!]
     \centering
@@ -1281,12 +1243,7 @@ TOI-3884.  \chcomment[id=W]{Citation needed?}
     at high latitudes ($\pm75^{\circ}$) with minimal probability near the
     equator, indicating a strong preference for near-polar spots. The symmetry
     across the equator reflects the inherent degeneracy in determining the
-    hemisphere of spot locations from transit data alone.  \chcomment[id=W]{This
-    posterior seems to be quite confident that there are \emph{no} equatorial
-    spots.  Is that simply a consequence of our assumption that the spots follow
-    a Beta distribution (i.e. that the distribution is single-peaked in each
-    hemishpere)?  Do we expect to have any information about the equator, given
-    the orientations we are finding?}}
+    hemisphere of spot locations from transit data alone.}
     \label{fig:spot_latitudes}
 \end{figure*}
 %
@@ -1297,9 +1254,7 @@ determined to be $\lambda\star = {80.37}^{+49.6}_{-27.5}$ degrees.
 The stellar rotation period was constrained to $P_\text{rot} = 9.07^{+0.45}_{-0.51}$ days, which places TOI-3884 among the 
 more rapidly rotating M dwarfs, consistent with its observed activity level and estimated age.
 
-We find a planetary radius of $R_p = 0.188 \pm 3\times10^{-3}$ $R_\star$
-\chcomment[id=W]{can we write out $\pm 0.003$ rather than $\pm 3 \times
-10^{-3}$?} and an orbital period of $P_\text{orb} =
+We find a planetary radius of $R_p = 0.188 \pm 0.003$ $R_\star$ and an orbital period of $P_\text{orb} =
 4.5446^{+2.7\times10^{-5}}_{-2.4\times10^{-5}}$ days. 
 
 \begin{table}[]
@@ -1331,8 +1286,7 @@ We find a planetary radius of $R_p = 0.188 \pm 3\times10^{-3}$ $R_\star$
 \end{table}
 %
 Figure \ref{fig:toi3884-transits} presents the transit light curves of TOI-3884
-from eight separate transit events. Each panel shows the phase-folded
-\chcomment[id=W]{what does it mean ``phase folded?''} photometric data (gray
+from eight separate transit events. Each panel shows the photometric data (gray
 points with error bars) along with the results from our model. The solid pink
 lines represent the model average from 100 posterior samples, while the light
 pink shaded regions indicate the $1\sigma$ uncertainty bounds of our model. The
@@ -1344,9 +1298,8 @@ visible in the transit profiles provides strong evidence for the stellar surface
 inhomogeneities due to spot-crossings. In particular, the subtle variations
 between different transit epochs (particularly visible in transits 3, 4, and 8)
 are consistent with the high-latitude spot configuration we've identified.
-\chcomment[id=W]{This implies that the spot is not a uniform polar cap OR that
-it evolves in time, right?  Since there is variability?  If that is correct,
-let's say so more explicitly.} Our model successfully captures the essential
+This implies that the spot is not a uniform polar cap or that
+it evolves in time. Our model successfully captures the essential
 features of all eight transit events, including the ingress and egress shapes as
 well as the in-transit variations. The quality of the fit across multiple epochs
 demonstrates the robustness of our spot model and stellar orientation
@@ -1499,7 +1452,7 @@ systems for which high-resolution spectroscopy is challenging.
     spin-orbit angle ($\lambda_\star$), planet-to-star radius ratio
     ($R_p/R_\star$), projected stellar rotational velocity ($v\sin i$), and
     stellar density ($\rho_\star$). The red shaded regions and vertical dashed
-    lines indicate independent \chadded[id=W]{1-$\sigma$} constraints from
+    lines indicate independent 1-$\sigma$ constraints from
     radial velocity measurements reported by \cite{Libby-Roberts2023}.}
     \label{fig:toi3884-compare}
 \end{figure*}
@@ -1559,12 +1512,13 @@ For TOI-3884, the $l_{\text{max}}=15$ resolution is justified by what we know ab
 larger spot structures than G-type stars like the Sun. Zeeman-Doppler imaging and spectropolarimetric studies of M dwarfs 
 generally reveal simpler, larger-scale magnetic field configurations, particularly for fully convective stars. 
 However, it remains unclear whether these stars truly lack small-scale features or if current observational techniques 
-simply cannot resolve them.  \chcomment[id=W]{Citation needed?}
+simply cannot resolve them.
 
 Additionally, we note that the effective resolution achievable from transit light curves is inherently limited by the transit 
 chord width and photometric precision. Even with perfect computational resources, the information content of the transit 
 signal places fundamental constraints on the recoverable spot size distribution. Multi-wavelength transit observations 
-would provide additional constraints that could help justify the increased computational expense of higher-resolution models.
+would provide additional constraints that could help justify the increased computational expense of higher-resolution 
+models \citep{Gastine2013,Strassmeier2009}.
 
 Given these considerations, our current $l_{\text{max}}=15$ model represents a practical compromise between resolving 
 power and computational feasibility. It captures the dominant features affecting the transit light curves while remaining 
@@ -1650,7 +1604,7 @@ the unique window provided by transiting exoplanets.
 
 \section*{Acknowledgments}
 S.S. thanks Adrian Price-Wheelan, Lionel Garcia, and the Data Group
-\chadded[id=W]{and Gravitational Wave Astronomy Group} at Flatiron Institute for
+and Gravitational Wave Astronomy Group at Flatiron Institute for
 the valuable discussions. S.S. also acknowledges a graduate fellowship at the
 Kavli Institute for Theoretical Physics, during which this research was
 completed. S.S. thanks the LSSTC Data Science Fellowship Program, funded by
