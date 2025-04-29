@@ -53,7 +53,7 @@ class StarryStarryProcess(object):
     def secondary(self):
         """The secondary star in the system."""
         return self.sys.secondaries[0]
-
+    
     @property
     def design_matrix(self):
         """The STARRY design matrix for the system.  This will only exist
@@ -81,12 +81,14 @@ class StarryStarryProcess(object):
         `_compute`."""
         return self._AInv_chol
 
-    def _compute(self, t, flux, sigma_flux):
-        """Utility method that marginalizes over stellar maps and stores the
-        marginal likelihood and mean/covariance of maps.  Called by
-        `marginal_likelihood` and `sample_ylm_conditional`."""
-        # M = self.sys.design_matrix(t)[:,:-1] # We don't use any flux from the secondary, so [:, :-1]
-        # M = self._M
+    def compute(self, t, flux, sigma_flux):
+        """
+        Performs various expensive linear algebra computations needed to compute
+        the marginal likelihood and sample from the conditional distribution.  
+        
+        Should be called **before** `marginal_likelihood` and/or
+        `sample_ylm_conditional`.
+        """
         theta = (360 * t / self.sys.bodies[0].prot) % 360
         M = self.sys.bodies[0].map.design_matrix(
             xo = self.sys.position(t)[0][1,:],
@@ -95,7 +97,7 @@ class StarryStarryProcess(object):
             ro = self.sys.bodies[1].r,
             theta = theta
             )
-
+        
         mu = self.mu
         Lambda = self.Lambda
 
@@ -147,9 +149,11 @@ class StarryStarryProcess(object):
         self.chi2 = chi2
         self.logdet_B = logdet_B
 
-    def marginal_likelihood(self, t, flux, sigma_flux):
+    def marginal_likelihood(self, t, flux, sigma_flux, recompute=False):
         """Compute the marginal likelihood of the data given the starry and
         starry process models, marginalizing over stellar maps.
+
+        **You must call `
         
         :param t: The times of the observations.
 
@@ -157,12 +161,19 @@ class StarryStarryProcess(object):
 
         :param sigma_flux: The uncertainties on the fluxes of the observations.
 
-        :return: `None`.  Stores the marginal likelihood in `self.logl_marginal`.
+        :param recompute: If `True`, call `self.compute` before the marginal
+            likelihood; `compute` must be called on the given times, fluxes, and
+            sigma_fluxes before calling this method, but it is cheaper to call
+            this once if you also intend to call `sample_ylm_conditional`.
+
+        :return: The marginal log-likelihood, which is also stored in
+            `self.logl_marginal`.
         """
-        self._compute(t, flux, sigma_flux)
+        if recompute:
+            self.compute(t, flux, sigma_flux)
         return self.logl_marginal
     
-    def sample_ylm_conditional(self, t, flux, sigma_flux, size=1, rng=None):
+    def sample_ylm_conditional(self, t, flux, sigma_flux, size=1, rng=None, recompute=False):
         """Sample the conditional distribution of the star's spherical harmonic
         map coefficients given observations and starry and starry process
         parameters.  
@@ -180,12 +191,19 @@ class StarryStarryProcess(object):
             for random numbers.  If `None`, a fresh generator will be created
             and initialized with a random seed.
 
+        :param recompute: If `True`, call `self.compute` before the sampling;
+            `compute` must be called on the given times, fluxes, and
+            sigma_fluxes before calling this method, but it is cheaper to call
+            this once if you also intend to call `marginal_likelihood`.
+
         :return alm: The samples of the star's spherical harmonic map
             coefficients, of shape `(size, n_Ylm)`.
         """
         if rng is None:
             rng = RandomStream(seed=np.random.randint(1<<32))
 
-        self._compute(t, flux, sigma_flux)
+        if recompute:
+            self.compute(t, flux, sigma_flux)
+
         nylm = self.a.shape[0]
         return self.a[None,:] + tt.slinalg.solve_upper_triangular(self.AInv_chol.T, rng.normal(size=(nylm, size))).T
