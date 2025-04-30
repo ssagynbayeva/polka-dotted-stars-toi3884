@@ -886,7 +886,9 @@ differential rotation, as well as changes in the size and intensity of individua
             The complex pattern of photometric variability, with amplitude variations between approximately 0.87 and 1.12 in 
             relative flux, reflects the combined effects of stellar rotation and evolving surface features. Note the non-periodic 
             nature of the variations and changing amplitude over time, indicative of multiple active regions evolving at different 
-            rates and locations on the stellar surface.}
+            rates and locations on the stellar surface.
+            \href{https://github.com/ssagynbayeva/polka-dotted-stars-toi3884/blob/main/src/tex/notebooks/experiment-2.ipynb}{\faGithub}
+        }
         \label{fig:experiment-2-lc}
     \end{centering}
 \end{figure*}
@@ -902,7 +904,9 @@ differential rotation, as well as changes in the size and intensity of individua
         yellow-orange areas represent the warmer photosphere. The maps illustrate the evolution of active regions over time, 
         including changes in spot distribution, emergence of new features, and potential differential rotation effects. 
         The dotted lines on the 3D visualizations indicate the planet's transit path. These surface maps demonstrate how the 
-        complex photometric variations in the light curve arise from the dynamic nature of stellar activity patterns.}
+        complex photometric variations in the light curve arise from the dynamic nature of stellar activity patterns.
+        \href{https://github.com/ssagynbayeva/polka-dotted-stars-toi3884/blob/main/src/tex/notebooks/experiment-2.ipynb}{\faGithub}
+    }
         \label{fig:experiment-2-true-maps}
     \end{centering}
 \end{figure}
@@ -935,7 +939,9 @@ maintain a similar overall flux effect.
         lines show the $\pm1\sigma$ boundaries. Parameters include spot latitude mean ($\mu_\phi$), latitude variance 
         ($\sigma^2_\phi$), radius ($\mathcal{r}$), spot contrast ($\mathcal{c}$), and number of spots ($n$). 
         The model successfully recovers all parameters within the expected uncertainty ranges.
-         Note the correlation between number of spots and contrast, a well-known degeneracy in spot modeling.}
+         Note the correlation between number of spots and contrast, a well-known degeneracy in spot modeling.
+         \href{https://github.com/ssagynbayeva/polka-dotted-stars-toi3884/blob/main/src/tex/notebooks/experiment-2.ipynb}{\faGithub}
+    }
         \label{fig:experiment-2-corner}
     \end{centering}
 \end{figure*}
@@ -947,7 +953,9 @@ maintain a similar overall flux effect.
         \includegraphics[width=\linewidth]{figures/experiment-2-active-lats.pdf}
         \caption{Posterior probability distribution of spot latitudes for Section \ref{sec:experiment2} just like the Figure 
         \ref{fig:experiment-1-acttive-lats}. The black line shows the true distribution, 
-        while the pink lines represent individual posterior samples.}
+        while the pink lines represent individual posterior samples.
+        \href{https://github.com/ssagynbayeva/polka-dotted-stars-toi3884/blob/main/src/tex/notebooks/experiment-2.ipynb}{\faGithub}
+        }
         \label{fig:experiment-2-active}
     \end{centering}
 \end{figure*}
@@ -992,7 +1000,9 @@ stellar surface features.
         the true maps, demonstrating the inclination-obliquity degeneracy discussed in Section \ref{sec:obl-inc}. 
         Despite this expected degeneracy, our model successfully recovers the number, approximate size, and longitudinal 
         positioning of major active regions, with excellent agreement between the model light curve (red line) and simulated 
-        observations (gray points).}
+        observations (gray points).
+        \href{https://github.com/ssagynbayeva/polka-dotted-stars-toi3884/blob/main/src/tex/notebooks/experiment-2.ipynb}{\faGithub}
+        }
         \label{fig:experiment-2-results}
     \end{centering}
 \end{figure*}
@@ -1057,9 +1067,8 @@ This provides a uniform distribution over the unit sphere when properly transfor
 
 The stellar position parameters $\tilde{x}_{\star}$, $\tilde{y}_{\star}$, and
 $\tilde{z}_{\star}$ similarly follow standard normal distributions:
-$\tilde{x}_{\star}$, $\tilde{y}_{\star},\tilde{z}_{\star} \sim \mathcal{N}(0,
-1)$, allowing for uncertainty in the precise position of the star.
-\chcomment[id=W]{What happened to the half-normal for $\tilde{z}$.}
+$\tilde{x}_{\star}$, $\tilde{y}_{\star} \sim \mathcal{N}(0,1)$, 
+$\tilde{z}_{\star}\sim \rm Half\mathcal{N}(0,1)$, allowing for uncertainty in the precise position of the star.
 
 The limb darkening coefficients for a quadratic limb darkening law are given uniform priors: 
 $u_1 \sim \mathcal{U}(0, 0.5)$ and $u_2 \sim \mathcal{U}(0, 0.2)$. These ranges are consistent with typical values 

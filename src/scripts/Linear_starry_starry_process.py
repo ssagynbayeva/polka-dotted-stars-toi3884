@@ -85,7 +85,6 @@ class LinearInterpolatedStarryStarryProcess(object):
 
         # Create sections based on actual time values
         sections = [t[0] + i * time_interval for i in range(num_maps)]
-        # sections = np.array([ 0., 45., 90.])
 
 
         for i, (t_lo, t_hi) in enumerate(pairwise(sections)):
@@ -212,7 +211,6 @@ class LinearInterpolatedStarryStarryProcess(object):
             Lambda2 = self.sp.cov_ylm[1:,1:]
 
         n_points = nt - end_idx
-        # logl += -0.5*chi2 - 0.5*logdet_B - 0.5*(n_points-1)*tt.log(2*np.pi)
         a_matrix.append(a[nlm:])
         AInv_chol_matrix.append(AInv_chol[nlm:,nlm:])
 
