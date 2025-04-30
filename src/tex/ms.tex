@@ -605,22 +605,6 @@ meaningful configurations without redundancy. This not only improves the
 efficiency of our sampling but also provides unambiguous constraints on the
 stellar geometry.
 
-% \subsection{Step-by-step model instruction}
-% In this section, we provide a comprehensive, step-by-step description of our model's methodology. 
-% This process outlines the key stages in our analysis, from initial data preparation to the final likelihood computation:
-
-% \begin{enumerate}
-%     \item Acquire the target system's light curve data.
-%     \item Preprocess the data by binning the out-of-transit observations to optimize computational efficiency while preserving signal fidelity.
-%     \item Construct a design matrix incorporating both planetary (transit) and stellar orbital parameters, encapsulating the geometry of the star-planet system.
-%     \item Establish physically motivated hyperparameters and prior distributions based on current astrophysical understanding and observational constraints.
-%     \item Implement a sampling algorithm to draw from the defined prior distributions, exploring the parameter space efficiently.
-%     % \item Generate synthetic light curves from the sampled parameters, simulating the observed stellar and planetary signals.
-%     \item Compute the covariance matrix for the Gaussian process, which models the stochastic components of stellar variability.
-%     \item Assemble the inverse of the full covariance matrix, combining deterministic and stochastic elements of the model based on Equation \ref{eq:Hoggtrick}.
-%     \item Calculate the likelihood of the observed data given the model parameters, quantifying the agreement between our model and the observations with Equation \ref{eq:log-likeRodrigo}.
-% \end{enumerate}
-
 \subsection{Model for evolving surfaces}
 \label{sec:evolmodel}
 Some active stars, particularly Sun-like stars, exhibit surface evolution on timescales as short as a single rotation period. For example, starspots can appear and dissipate within days or weeks, 
@@ -670,34 +654,6 @@ epochs of the interpolated light
 curve span times that are comparable to the spot evolution
 timescale.
 
-% \subsection{Experiment on a non-evolving star}
-% For our initial experiment with minimal complexity, we created a synthetic light curve that involved a single planetary transit (therefore, 
-% \emph{a short light curve}). Here, we examined two distinct sampling techniques: No-U-Turn Sampling (NUTS) using \texttt{pymc3} and Markov Chain Monte Carlo (MCMC) 
-% using \texttt{emcee}. The MCMC technique exhibited a faster convergence rate of the walkers, despite the fact that it still required a significant amount of time.
-% \subsection{Long light curves (multiple transits)}
-
-% \begin{figure}[ht!]
-%     \script{synthetic_data.py}
-%     \begin{centering}
-%         \includegraphics[width=\linewidth]{figures/SyntheticDataMap.pdf}
-%         \includegraphics[width=\linewidth]{figures/SyntheticDataLightCurve.pdf}
-%         \caption{
-%             A synthetic dataset.
-%         }
-%         \label{fig:SyntheticDataLc}
-%     \end{centering}
-% \end{figure}
-
-% \begin{figure}[ht!]
-%     \script{synthetic_data.py}
-%     \begin{centering}
-%         \includegraphics[width=\linewidth]{figures/SyntheticDataCorner.pdf}
-%         \caption{
-%             A synthetic dataset corner plot.
-%         }
-%         \label{fig:SyntheticDataCorner}
-%     \end{centering}
-% \end{figure}
 
 \section{Results: synthetic datasets}
 \label{sec:results-synthetic}
@@ -747,7 +703,8 @@ resolution and computational expense in the Section \ref{sec:smallspots}.
             shows the stellar map along with its orientation on the sky and the right panel shows the rectangular projection of the map. 
             The bottom panel is the generated light curve. The black line is the \textit{true} light curve and the blue dots show the binned light curve
             that's used in the model.
-        }
+            \href{https://github.com/ssagynbayeva/polka-dotted-stars-toi3884/blob/main/src/tex/notebooks/experiment-1.ipynb}{\faGithub}
+            }
         \label{fig:experiment-1-map}
     \end{centering}
 \end{figure*}
@@ -782,7 +739,8 @@ same locations, same active latitudes, etc. -- which still explains the surface 
             In our analysis process, 
     when we encounter a solution that gives the obliquity $\lambda_{\star, \rm inferred}$ instead of $-\lambda_{\star, \rm inferred}$, we systematically transform the results. 
     Specifically, we change the inclination to $180^\circ-i_{\star, \rm inferred}$ and obliquity to $-\lambda_{\star, \rm inferred}$ for visualization purposes. 
-        }
+    \href{https://github.com/ssagynbayeva/polka-dotted-stars-toi3884/blob/main/src/tex/notebooks/experiment-1.ipynb}{\faGithub}
+    }
         \label{fig:experiment-1-map-corner-all}
     \end{centering}
 \end{figure*}
@@ -800,7 +758,8 @@ same locations, same active latitudes, etc. -- which still explains the surface 
             pink lines show the best-fit model. Note the spot-crossing events visible as brief brightness increases during transits. 
             The light curve fit shows strong agreement with the data over the full time series, while the transit close-ups highlight the model's ability 
             to capture subtle spot-crossing events and their evolution over consecutive transits.
-        }
+            \href{https://github.com/ssagynbayeva/polka-dotted-stars-toi3884/blob/main/src/tex/notebooks/experiment-1.ipynb}{\faGithub}
+            }
         \label{fig:experiment-1-map-comparison}
     \end{centering}
 \end{figure*}
@@ -830,6 +789,7 @@ uncertainties of the inference process.
             in our dataset. The black curve shows the true underlying distribution used to generate the synthetic spot data (parameters given in Table 
             \ref{tab:LongPriors}). Note the general agreement between the inferred distributions and the true distribution, 
             demonstrating the model's ability to recover the input spot latitude distribution within the uncertainties of the inference process.
+            \href{https://github.com/ssagynbayeva/polka-dotted-stars-toi3884/blob/main/src/tex/notebooks/experiment-1.ipynb}{\faGithub}
         }
         \label{fig:experiment-1-acttive-lats}
     \end{centering}
@@ -880,22 +840,6 @@ though the reconstructed spots would appear larger than in reality. This size di
 and the apparent number of spots in the model. Despite these constraints, the approach aligns well with observations of 
 many young and active stars, where extensive spot coverage is common. 
 
-
-%
-% \begin{figure*}[hbt!]
-%     % \script{experiment-1-true-map.py}
-%     \begin{centering}
-%         \includegraphics[width=\linewidth]{figures/experiment-1-comparison-inferred-maps.pdf}
-%         \caption{
-%             Comparison two inferred stellar surface maps, Left: the inferred stellar surface map, representing the mean of 1000 posterior samples
-%             but with a changed obliquity to $-\lambda_{\rm inferred}$ and inclination to  $180^\circ-i_{\rm inferred}$. 
-%             Right: the inferred stellar surface map, representing the mean of 1000 posterior samples
-%             with an actual inferred obliquity (in this case, $\lambda_{\rm inferred}=\sim 31^\circ$) and inclination $i_{\rm inferred}=90^\circ$.
-%         }
-%         \label{fig:experiment-1-inf-map-comparison}
-%     \end{centering}
-% \end{figure*}
-%
 
 \subsection{Experiment II: evolving surface}
 \label{sec:experiment2}
