@@ -4,13 +4,13 @@
 </a>
 <br>
 <br>
-<a href="https://github.com/ssagynbayeva/polka-dotted-stars-hatp11/actions/workflows/build.yml">
-<img src="https://github.com/ssagynbayeva/polka-dotted-stars-hatp11/actions/workflows/build.yml/badge.svg" alt="Article status"/>
+<a href="https://github.com/ssagynbayeva/polka-dotted-stars-toi3884/actions/workflows/build.yml">
+<img src="https://github.com/ssagynbayeva/polka-dotted-stars-toi3884/actions/workflows/build.yml/badge.svg" alt="Article status"/>
 </a>
-<a href="https://github.com/ssagynbayeva/polka-dotted-stars-hatp11/raw/main-pdf/arxiv.tar.gz">
+<a href="https://github.com/ssagynbayeva/polka-dotted-stars-toi3884/raw/main-pdf/arxiv.tar.gz">
 <img src="https://img.shields.io/badge/article-tarball-blue.svg?style=flat" alt="Article tarball"/>
 </a>
-<a href="https://github.com/ssagynbayeva/polka-dotted-stars-hatp11/raw/main-pdf/ms.pdf">
+<a href="https://github.com/ssagynbayeva/polka-dotted-stars-toi3884/raw/main-pdf/ms.pdf">
 <img src="https://img.shields.io/badge/article-pdf-blue.svg?style=flat" alt="Read the article"/>
 </a>
 </p>
